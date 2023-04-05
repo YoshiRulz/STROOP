@@ -193,23 +193,10 @@
 		<None Include="OpenTK.dll.config" />
 		<None Include="packages.config" />
 		<None Include="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
-		<None Include="Resources\**\*.png" />
+		<None Include="Resources\**\*.*" CopyToOutputDirectory="PreserveNewest" />
 		<None Remove="*_wpftmp.csproj" />
 		<None Remove="EmbeddedResources\**\*.png" />
 		<None Remove="icon.png" />
-		<None Remove="Resources\direction_in.png" />
-		<None Remove="Resources\direction_out.png" />
-		<None Remove="Resources\File Images\**\*.png" />
-		<None Remove="Resources\image_divide.png" />
-		<None Remove="Resources\image_plus_green.png" />
-		<None Remove="Resources\image_times.png" />
-		<None Remove="Resources\Input Images\**\*.png" />
-		<None Remove="Resources\Maps\**\*.png" />
-		<None Remove="Resources\Object Images\**\*.png" />
-		<None Remove="Resources\Overlays\**\*.png" />
-		<None Remove="Resources\**\*.glsl" />
-		<None Remove="Resources\**\*.hck" />
-		<None Remove="Resources\**\*.src64" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Controls\BetterContextMenuStrip.cs" SubType="Component" />
@@ -416,9 +403,6 @@
 			del "$(TargetDir)OpenTK.xml"
 			del "$(TargetDir)STROOP.exe.config"
 		</PostBuildEvent>
-	</PropertyGroup>
-	<PropertyGroup>
-		<PreBuildEvent>xcopy /E /Y /I "$(ProjectDir)Resources" "$(TargetDir)Resources" /D</PreBuildEvent>
 	</PropertyGroup>
 	<Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
 	<Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
