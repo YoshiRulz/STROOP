@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,7 +7,7 @@
 		<AppDesignerFolder>Properties</AppDesignerFolder>
 		<RootNamespace>STROOP</RootNamespace>
 		<AssemblyName>STROOP</AssemblyName>
-		<TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+		<TargetFramework>net461</TargetFramework>
 		<FileAlignment>512</FileAlignment>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<IsWebBootstrapper>false</IsWebBootstrapper>
@@ -40,6 +38,7 @@
 		<SignManifests>false</SignManifests>
 		<SignAssembly>false</SignAssembly>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
 		<DebugSymbols>true</DebugSymbols>
@@ -82,6 +81,7 @@
 		<OutputPath>..\..\Windows Build\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
 		<PackageReference Include="Accord" Version="3.8.0" />
 		<PackageReference Include="Accord.Video" Version="3.8.0" />
 		<PackageReference Include="Accord.Video.FFMPEG" Version="3.8.0" />
@@ -110,20 +110,14 @@
 		<Reference Include="WindowsFormsIntegration" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Include="**\*.cs" />
 		<Compile Remove="Utilities\Stream\IProcessMemory.cs" />
 		<Content Include="Config\**\*.xml" />
 		<Content Include="icon.ico" />
 		<Content Include="Licenses.txt" />
-		<EmbeddedResource Include="**\*.resx" />
 		<EmbeddedResource Include="Schemas\**\*.xsd" />
-		<None Include="App.config" />
-		<None Include="app.manifest" />
 		<None Include="Mappings\**\*.map" CopyToOutputDirectory="PreserveNewest" />
-		<None Include="OpenTK.dll.config" />
 		<None Include="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
 		<None Include="Resources\**\*.*" CopyToOutputDirectory="PreserveNewest" />
-		<None Remove="*_wpftmp.csproj" />
 		<None Remove="EmbeddedResources\**\*.png" />
 		<None Remove="icon.png" />
 	</ItemGroup>
@@ -324,13 +318,10 @@
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<PropertyGroup>
-		<PostBuildEvent>
-			del "$(TargetDir)OpenTK.dll.config"
-			del "$(TargetDir)OpenTK.GLControl.xml"
-			del "$(TargetDir)OpenTK.xml"
-			del "$(TargetDir)STROOP.exe.config"
-		</PostBuildEvent>
-	</PropertyGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Delete Files="$(TargetDir)OpenTK.dll.config" />
+		<Delete Files="$(TargetDir)OpenTK.GLControl.xml" />
+		<Delete Files="$(TargetDir)OpenTK.xml" />
+		<Delete Files="$(TargetDir)STROOP.exe.config" />
+	</Target>
 </Project>
